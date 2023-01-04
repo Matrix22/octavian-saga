@@ -23,7 +23,7 @@ redemption: redemption.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 pack:
-	zip -FSr 321CA_BanigreiOctavian.zip *.cpp *.hpp *.h Makefile README
+	zip -FSr 323CD_NegruMihai.zip *.cpp *.hpp *.h Makefile README
 
 clean:
 	rm -f trial rise redemption
