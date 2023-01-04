@@ -1,5 +1,4 @@
-#ifndef TASK_H_
-#define TASK_H_
+#pragma once
 
 #include <bits/stdc++.h>
 #include <iostream>
@@ -9,8 +8,11 @@
 #include <utility>
 #include <string>
 
+namespace AA {
+    class Task;
+}
 
-class Task {
+class AA::Task {
  public:
     virtual ~Task() = default;
     virtual void solve() = 0;
@@ -28,8 +30,8 @@ class Task {
      * @param out_filename:        the file containing the problem output
      */
 
-    /*
-     * Asks the oracle for an answer to the formulated question.
+    /**
+     * @brief Asks the oracle for an answer to the formulated question.
      */
     void ask_oracle() {
         std::string solver_path = "sat_oracle.py";
@@ -54,5 +56,3 @@ class Task {
         }
     }
 };
-
-#endif  // TASK_H_

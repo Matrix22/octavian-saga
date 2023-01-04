@@ -1,2 +1,6 @@
 check_utils/
 tasks/*/*/*/*.out
+trial
+redemption
+rise
+.vscode
