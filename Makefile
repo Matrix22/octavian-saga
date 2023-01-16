@@ -1,31 +1,42 @@
-CC = g++
-CFLAGS = -Wall -Wextra -std=c++17
-LDFLAGS = -lm
+# COMPILER RULES
+CC := g++
+CFLAGS := -Wall -Wextra -Werror -std=c++17
+LDFLAGS := -lm
 
-build: trial rise redemption
+# ARCHIVE RULES
+ZIP := zip
+ZIP_FLAGS := -FSr
+ARCHIVE_NAME := 323CD_NegruMihai.zip
+ARCHIVE_FILES := *.cpp *.hpp *.h Makefile README
 
-run_trial: trial
-	./trial
+# TARGET FILES RULES
+SRC_FILES := $(wildcard *.cpp)
+EXEC_FILES := $(patsubst %.cpp,%,$(SRC_FILES))
+SAT_FILES := sat.cnf sat.sol
 
-run_rise: rise
-	./rise
-
-run_redemption: redemption
-	./redemption
-
-trial: trial.cpp
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
-
-rise: rise.cpp
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
-
-redemption: redemption.cpp
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
-
-pack:
-	zip -FSr 323CD_NegruMihai.zip *.cpp *.hpp *.h Makefile README
-
-clean:
-	rm -f trial rise redemption
+# REMOVING RULES
+RM := rm
+RM_FLAGS := -rf
 
 .PHONY: pack build clean
+
+# BUILDING EXECUTABLES FILES RULES
+build: $(EXEC_FILES)
+
+%: %.cpp
+	@$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
+
+# RUNNING EXECUTABLES FILES RULES
+run_%: %
+	@./$<
+
+
+# CLEANING RULES
+clean:
+	@$(RM) $(RM_FLAGS) $(EXEC_FILES) $(SAT_FILES)
+
+
+# PACKING RULES
+pack:
+	@$(ZIP) $(ZIP_FLAGS) $(ARCHIVE_NAME) $(ARCHIVE_FILES)
