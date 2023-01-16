@@ -21,7 +21,7 @@ class TrialUtility: public SAGA::AbstractUtility {
                     int element;
                     std::cin >> element;
 
-                    universe[element].insert(subset_idx);
+                    subsets[element].insert(subset_idx);
                 }
             }
         }
@@ -40,7 +40,7 @@ class TrialUtility: public SAGA::AbstractUtility {
             // Write clauses for each subset to be chosen for cover
             for (int iter_k = 1; iter_k <= K; ++iter_k) {
                 for (int iter_m = 1; iter_m <= M; ++iter_m) {
-                    sat_file << compute_bool_var(K, iter_m, iter_k) << " ";
+                    sat_file << COMPUTE_BOOL_VAR(K, iter_m, iter_k) << " ";
                 }
                 sat_file << "0\n";
             }
@@ -49,7 +49,7 @@ class TrialUtility: public SAGA::AbstractUtility {
             if (K > 1) {
                 for (int iter_m = 1; iter_m <= M; ++iter_m) {
                     for (int iter_k = 1; iter_k <= K; ++iter_k) {
-                        sat_file << -compute_bool_var(K, iter_m, iter_k) << " ";
+                        sat_file << -COMPUTE_BOOL_VAR(K, iter_m, iter_k) << " ";
                     }
                     sat_file << "0\n";
                 }
@@ -59,16 +59,16 @@ class TrialUtility: public SAGA::AbstractUtility {
             for (int iter_k = 1; iter_k <= K; ++iter_k) {
                 for (int iter_m1 = 1; iter_m1 < M; ++iter_m1) {
                     for (int iter_m2 = iter_m1 + 1; iter_m2 <= M; ++iter_m2) {
-                        sat_file << -compute_bool_var(K, iter_m1, iter_k) << " " << -compute_bool_var(K, iter_m2, iter_k) << " 0\n";
+                        sat_file << -COMPUTE_BOOL_VAR(K, iter_m1, iter_k) << " " << -COMPUTE_BOOL_VAR(K, iter_m2, iter_k) << " 0\n";
                     }
                 }
             }
 
             // Write clauses so each element is covered by at least one subset
-            for (const auto& [element, subsets]: universe) {
+            for (const auto& [element, subsets]: subsets) {
                 for (const auto& subset_idx: subsets) {
                     for (int iter_k = 1; iter_k <= K; ++iter_k) {
-                        sat_file << compute_bool_var(K, subset_idx, iter_k) << " ";
+                        sat_file << COMPUTE_BOOL_VAR(K, subset_idx, iter_k) << " ";
                     }
                 }
                 sat_file << "0\n";
@@ -149,22 +149,9 @@ class TrialUtility: public SAGA::AbstractUtility {
     
     private:
         int N, M, K;
-        std::unordered_map<int, std::unordered_set<int>> universe;
+        std::unordered_map<int, std::unordered_set<int>> subsets;
         std::unordered_set<int> chosen_subsets;
         std::string satisfiable;
-
-        /**
-         * @brief Function to map a boolean variable to a number
-         * in a DIMACS format.
-         * 
-         * @param k the number of chosen subsets
-         * @param i the index of the subset
-         * @param j the indes of the subset in the cover
-         * @return int 
-         */
-        int compute_bool_var(int k, int i, int j) {
-            return j + k * (i - 1);
-        }
 };
 
 int main(void) {

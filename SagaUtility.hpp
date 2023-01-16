@@ -8,6 +8,8 @@
 #include <utility>
 #include <string>
 
+#define COMPUTE_BOOL_VAR(K, i, j) (j + K * (i - 1))
+
 namespace SAGA {
     class AbstractUtility;
 }
