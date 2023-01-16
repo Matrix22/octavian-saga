@@ -1,6 +1,6 @@
-#include "./task.hpp"
+#include "./SagaUtility.hpp"
 
-class Task1: public AA::Task {
+class TrialUtility: public SAGA::AbstractUtility {
     public:
         void solve() override {
             read_problem_data();
@@ -145,7 +145,7 @@ class Task1: public AA::Task {
             }
         }
 
-        ~Task1() override = default;
+        ~TrialUtility() override = default;
     
     private:
         int N, M, K;
@@ -168,7 +168,7 @@ class Task1: public AA::Task {
 };
 
 int main(void) {
-    Task1().solve();
+    TrialUtility().solve();
     
     return 0;
 }

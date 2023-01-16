@@ -8,26 +8,26 @@
 #include <utility>
 #include <string>
 
-namespace AA {
-    class Task;
+namespace SAGA {
+    class AbstractUtility;
 }
 
-class AA::Task {
+class SAGA::AbstractUtility {
  public:
-    virtual ~Task() = default;
+    virtual ~AbstractUtility() = default;
     virtual void solve() = 0;
     virtual void read_problem_data() = 0;
     virtual void formulate_oracle_question() = 0;
     virtual void decipher_oracle_answer() = 0;
     virtual void write_answer() = 0;
 
-    /*
-     * Stores the files paths as class attributes.
+    /**
+     * @brief Stores the files paths as class attributes.
      *
-     * @param in_filename:         the file containing the problem input
-     * @param oracle_in_filename:  the file containing the oracle input
-     * @param oracle_out_filename: the file containing the oracle output
-     * @param out_filename:        the file containing the problem output
+     * @param in_filename the file containing the problem input
+     * @param oracle_in_filename the file containing the oracle input
+     * @param oracle_out_filename the file containing the oracle output
+     * @param out_filename the file containing the problem output
      */
 
     /**

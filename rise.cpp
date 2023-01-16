@@ -1,6 +1,6 @@
-#include "./task.hpp"
+#include "./SagaUtility.hpp"
 
-class Task2: public AA::Task {
+class RiseUtility: public SAGA::AbstractUtility {
     public:
         void solve() override {
             read_problem_data();
@@ -22,13 +22,13 @@ class Task2: public AA::Task {
         void write_answer() override {
         }
 
-        ~Task2() override = default;
+        ~RiseUtility() override = default;
     
     private:
 };
 
 int main(void) {
-    Task2().solve();
+    RiseUtility().solve();
     
     return 0;
 }

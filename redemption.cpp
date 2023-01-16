@@ -1,13 +1,13 @@
-#include "./task.hpp"
+#include "./SagaUtility.hpp"
 
-class Task3: public AA::Task {
+class RedemptionUtility: public SAGA::AbstractUtility {
     public:
         void solve() override {
             read_problem_data();
-            formulate_oracle_question();
-            ask_oracle();
-            decipher_oracle_answer();
-            write_answer();
+            // formulate_oracle_question();
+            // ask_oracle();
+            // decipher_oracle_answer();
+            // write_answer();
         }
     
         void read_problem_data() override {
@@ -22,11 +22,13 @@ class Task3: public AA::Task {
         void write_answer() override {
         }
 
-        ~Task3() override = default;
+        ~RedemptionUtility() override = default;
     
     private:
 };
 
 int main(void) {
+    RedemptionUtility().solve();
+
     return 0;
 }
