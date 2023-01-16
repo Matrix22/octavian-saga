@@ -4,10 +4,10 @@ class Task2: public AA::Task {
     public:
         void solve() override {
             read_problem_data();
-            formulate_oracle_question();
-            ask_oracle();
-            decipher_oracle_answer();
-            write_answer();
+            // formulate_oracle_question();
+            // ask_oracle();
+            // decipher_oracle_answer();
+            // write_answer();
         }
     
         void read_problem_data() override {
@@ -28,5 +28,7 @@ class Task2: public AA::Task {
 };
 
 int main(void) {
+    Task2().solve();
+    
     return 0;
 }

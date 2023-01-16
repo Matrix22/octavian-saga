@@ -4,16 +4,16 @@ LDFLAGS = -lm
 
 build: trial rise redemption
 
-run_trial:
+run_trial: trial
 	./trial
 
-run_rise:
+run_rise: rise
 	./rise
 
-run_redemption:
+run_redemption: redemption
 	./redemption
 
-trial: trial.cpp set_cover.cpp
+trial: trial.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 rise: rise.cpp
