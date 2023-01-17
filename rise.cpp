@@ -89,8 +89,8 @@ class RiseUtility: public SAGA::AbstractUtility {
             }
 
             // Write clauses so each element is covered by at least one subset
-            for (const auto& [element, subsets]: subsets) {
-                for (const auto& subset_idx: subsets) {
+            for (const auto subsets_entity : subsets) {
+                for (const auto& subset_idx: subsets_entity.second) {
                     for (int iter_k = 1; iter_k <= K; ++iter_k) {
                         sat_file << COMPUTE_BOOL_VAR(K, subset_idx, iter_k) << " ";
                     }
