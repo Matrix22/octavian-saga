@@ -1,4 +1,4 @@
-#include "./SagaUtility.hpp"
+#include "./saga_utility.hpp"
 
 /**
  * @brief Class that sovles the Set Cover problem

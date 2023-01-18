@@ -1,4 +1,4 @@
-#include "./SagaUtility.hpp"
+#include "./saga_utility.hpp"
 
 class RedemptionUtility: public SAGA::AbstractUtility {
     public:
