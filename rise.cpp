@@ -1,5 +1,12 @@
 #include "./SagaUtility.hpp"
 
+/**
+ * @brief Class that computes the minimum number of decks
+ * that should be bought in order to get the full collection
+ * of the cards (universe). The problem is reduced to the
+ * Set Cover problem and then solved using the SAT solver.
+ * 
+ */
 class RiseUtility: public SAGA::AbstractUtility {
     public:
         void solve() override {
@@ -19,16 +26,20 @@ class RiseUtility: public SAGA::AbstractUtility {
             std::unordered_set<std::string> universe;
             std::string card;
 
+            // Read cards that are already in the deck
             for (int card_idx = 0; card_idx < N_CARDS; ++card_idx) {
                 std::getline(std::cin >> std::ws, card);
                 cards.insert(card);
             }
 
+            // Read all cards in order to collect
             for (int card_idx = 0; card_idx < N; ++card_idx) {
                 std::getline(std::cin >> std::ws, card);
                 universe.insert(card);
             }
 
+            // Remove all cards that are already in the deck
+            // in order to create the universe to cover
             for (const auto card : cards) {
                 universe.erase(card);
             }
@@ -36,6 +47,8 @@ class RiseUtility: public SAGA::AbstractUtility {
             N = universe.size();
             K = M;
 
+            // Map the strings into ints in order to use
+            // the same code as in trial.cpp
             for (int subset_idx = 1; subset_idx <= M; ++subset_idx) {
                 int subset_size;
                 std::cin >> subset_size;

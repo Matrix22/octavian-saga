@@ -1,5 +1,10 @@
 #include "./SagaUtility.hpp"
 
+/**
+ * @brief Class that sovles the Set Cover problem
+ * using the SAT solver
+ * 
+ */
 class TrialUtility: public SAGA::AbstractUtility {
     public:
         void solve() override {
@@ -13,6 +18,7 @@ class TrialUtility: public SAGA::AbstractUtility {
         void read_problem_data() override {
             std::cin >> N >> M >> K;
 
+            // Compute the frequency for every element in all subsets
             for (int subset_idx = 1; subset_idx <= M; ++subset_idx) {
                 int subset_size;
                 std::cin >> subset_size;

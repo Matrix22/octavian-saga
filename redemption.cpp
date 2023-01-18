@@ -17,20 +17,27 @@ class RedemptionUtility: public SAGA::AbstractUtility {
             std::unordered_map<std::string, int> universe;
             std::string card;
 
+            // Read cards that are already in the deck
             for (int card_idx = 0; card_idx < N_CARDS; ++card_idx) {
                 std::getline(std::cin >> std::ws, card);
                 cards.insert(card);
             }
 
+            // Read all cards in order to collect
             for (int card_idx = 1; card_idx <= N; ++card_idx) {
                 std::getline(std::cin >> std::ws, card);
                 universe.insert({card, card_idx});
             }
 
+            // Remove all cards that are already in the deck
+            // in order to create the universe to cover
             for (const auto card : cards) {
                 universe.erase(card);
             }
 
+            // Remap the string to int in order to process
+            // the strings as elements from the universe and
+            // to optimize time for comparisions
             int card_idx = 1;
             for (auto& card : universe) {
                 card.second = card_idx++;
@@ -38,6 +45,7 @@ class RedemptionUtility: public SAGA::AbstractUtility {
 
             N = universe.size();
 
+            // Register all the subsets with their elements as ints
             for (int subset_idx = 1; subset_idx <= M; ++subset_idx) {
                 int subset_size;
                 std::cin >> subset_size;
@@ -59,6 +67,8 @@ class RedemptionUtility: public SAGA::AbstractUtility {
             int max_covering_elements = 0;
             int max_covering_subset_idx = 0;
 
+            // Select the fisrt subset as the one with the most elements
+            // in order to optimize the code in the next while block
             for (const auto subset : subsets) {
                 if ((int)subset.second.size() > max_covering_elements) {
                     max_covering_elements = subset.second.size();
@@ -70,6 +80,8 @@ class RedemptionUtility: public SAGA::AbstractUtility {
                 return;
             }
 
+            // Insert all the elements from the first subset
+            // into the `covered universe`
             for (const auto subset_element : subsets[max_covering_subset_idx]) {
                 dummy_universe.insert(subset_element);
             }
@@ -77,6 +89,8 @@ class RedemptionUtility: public SAGA::AbstractUtility {
             chosen_subsets.push_back(max_covering_subset_idx);
             subsets.erase(max_covering_subset_idx);
 
+            // Select the next subset as the one with the most elements
+            // that are not in the `covered universe`
             int covering_elements = 0;
             while ((int)dummy_universe.size() < N) {
                 max_covering_elements = 0;
@@ -85,6 +99,8 @@ class RedemptionUtility: public SAGA::AbstractUtility {
                 for (const auto subset : subsets) {
                     covering_elements = 0;
 
+                    // Compute the maximum number of elements
+                    // that will be covered by the subset
                     for (const auto subset_element : subset.second) {
                         if (dummy_universe.count(subset_element) == 0) {
                             ++covering_elements;
@@ -97,6 +113,8 @@ class RedemptionUtility: public SAGA::AbstractUtility {
                     }
                 }
 
+                // If no subset can cover any element from the universe
+                // then the problem is unsatisfiable
                 if (max_covering_subset_idx == 0) {
                     K = 0;
                     break;
